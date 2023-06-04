@@ -1,0 +1,44 @@
+<mat-drawer-container [autosize]="true">
+    <mat-drawer-content class="p-6">
+        <div class="m-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            <div *ngFor="let product of products">
+                <mat-card class="text-center">
+                    <div>
+                        <img class="mb-1 mx-auto h-[150px] w-[150px]" 
+                            src={{product.img}}
+                        />
+                        <div class="w-full">
+                            <div>
+                                <span class="rounded-full bg-gray-300 text-xs">
+                                    &nbsp; min. amount: {{ product.minOrderAmount }} &nbsp;
+                                </span>
+                                <h4 class="mb-8 pt-3">{{ product.name }}</h4>
+                                <h2>{{ product.price | currency }}</h2>
+                                <div *ngIf="checkInCart(product) === -1">
+                                    <button mat-raised-button color="primary" (click)="addToCart(product)">
+                                        Add to cart
+                                    </button>
+                                </div>
+                                <div *ngIf="checkInCart(product) !== -1" class="flex justify-between">
+                                    <button mat-stroked-button (click)="removeFromCart(product)"
+                                        *ngIf="getItemFromCart(product).orderedQuantity != product.minOrderAmount">
+                                        <mat-icon>remove</mat-icon>
+                                    </button>
+                                    <button mat-stroked-button (click)="removeFromCart(product)"
+                                        *ngIf="getItemFromCart(product).orderedQuantity == product.minOrderAmount">
+                                        <mat-icon class="text-rose-700">delete_forever</mat-icon>
+                                    </button>
+                                    <div class="m-auto font-bold text-base">{{ getItemFromCart(product).orderedQuantity }}</div>
+                                    <button mat-raised-button color="primary" (click)="addToCart(product)"
+                                    [disabled]="getItemFromCart(product).orderedQuantity >= product.availableAmount">
+                                        <mat-icon>add</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>
