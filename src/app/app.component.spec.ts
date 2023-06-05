@@ -1,35 +1,56 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent],
+      imports: [MatSidenavModule, BrowserAnimationsModule ]
     }).compileComponents();
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'onlineShop'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('onlineShop');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('onlineShop app is running!');
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should have a title', () => {
+    expect(component.title).toBeDefined();
+    expect(typeof component.title).toBe('string');
+  });
+
+  it('should render the header component', () => {
+    const headerComponent = fixture.nativeElement.querySelector('app-header');
+    expect(headerComponent).toBeTruthy();
+  });
+
+  it('should render the nav component', () => {
+    const navComponent = fixture.nativeElement.querySelector('app-nav');
+    expect(navComponent).toBeTruthy();
+  });
+
+  it('should render the mat-drawer-container', () => {
+    const drawerContainer = fixture.nativeElement.querySelector('mat-drawer-container');
+    expect(drawerContainer).toBeTruthy();
+  });
+
+  it('should render the mat-drawer-content', () => {
+    const drawerContent = fixture.nativeElement.querySelector('mat-drawer-content');
+    expect(drawerContent).toBeTruthy();
+  });
+
+  it('should render the router-outlet', () => {
+    const routerOutlet = fixture.nativeElement.querySelector('router-outlet');
+    expect(routerOutlet).toBeTruthy();
   });
 });

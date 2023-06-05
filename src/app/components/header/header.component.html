@@ -1,7 +1,7 @@
 <mat-toolbar class="justify-between" color="primary">
     <ng-container class="max-w-[2048px] mx-auto">
         <a routerLink="home">Fiction Store</a>
-        <button mat-icon-button (click)="getCartItems()" [matMenuTriggerFor]="menu">
+        <button mat-icon-button (click)="getCartItems()" [matMenuTriggerFor]="menu" class="cart-menu">
             <mat-icon
                 [matBadgeHidden]="getNumberOfItems() === 0"
                 [matBadge]="numberOfItems"
@@ -28,7 +28,7 @@
             </div>
             <div class="pt-3 flex justify-end">
                 <button (click)="navigateToCart()"
-                    class="bg-green-600 text-white w-9 h-9">
+                    class="bg-green-600 text-white w-9 h-9 cart-button">
                     <mat-icon>shopping_cart</mat-icon>
                 </button>
             </div>

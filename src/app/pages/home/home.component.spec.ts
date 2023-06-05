@@ -20,4 +20,13 @@ describe('HomeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should display the welcome message', () => {
+    const headingElement = fixture.nativeElement.querySelector('h2');
+    const paragraphElement = fixture.nativeElement.querySelector('p');
+
+    expect(headingElement.textContent).toContain('Welcome at the Online Shop!');
+    expect(paragraphElement.textContent).toContain('You can find our products at the Products page.');
+    expect(paragraphElement.textContent).toContain('After selecting the products, check your cart and finalize your selection.');
+  });
 });

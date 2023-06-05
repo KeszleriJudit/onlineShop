@@ -10,7 +10,7 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class HeaderComponent implements OnInit {
 
-  cart: Product[] | null = [];
+  cart: Product[] = [];
   numberOfItems: number = 0;
 
   constructor(
@@ -28,9 +28,11 @@ export class HeaderComponent implements OnInit {
 
   getTotalValue(): number {
     let totalValue = 0;
-    this.cart!.forEach(element => {
+    if(this.cart){
+      this.cart.forEach(element => {
       totalValue += element.orderedQuantity * element.price;
     });
+    }
     return totalValue;
   }
 
