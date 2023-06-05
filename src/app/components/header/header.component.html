@@ -1,12 +1,15 @@
 <mat-toolbar class="justify-between" color="primary">
-    <a routerLink="home">Fiction Store</a>
-    <button mat-icon-button (click)="getCartItems()" [matMenuTriggerFor]="menu">
-        <mat-icon
-            [matBadge]="1"
-            matBadgeColor="warn">
-            shopping_cart
-        </mat-icon>
-    </button>
+    <ng-container class="max-w-[2048px] mx-auto">
+        <a routerLink="home">Fiction Store</a>
+        <button mat-icon-button (click)="getCartItems()" [matMenuTriggerFor]="menu">
+            <mat-icon
+                [matBadgeHidden]="getNumberOfItems() === 0"
+                [matBadge]="numberOfItems"
+                matBadgeColor="warn">
+                shopping_cart
+            </mat-icon>
+        </button>
+    </ng-container>
     <mat-menu #menu="matMenu">
         <div class="p-3 divide-y divide-solid" *ngIf="cart">
             <div class="pb-3 flex justify-between">
@@ -14,9 +17,9 @@
                 <a routerLink="cart">View Cart</a>
             </div>
             <div class="py-3">
-                <div class="font-light mb-2 items" *ngFor="let item of cart">
-                    <span>{{ item.name + ' x ' + item.orderedQuantity }} </span>
-                    <span class="italic">{{ item.price * item.orderedQuantity | currency }}</span>
+                <div class="flex font-light mb-2 justify-between" *ngFor="let item of cart">
+                    <div>{{ item.name + ' x ' + item.orderedQuantity }} </div>
+                    <div class="italic">{{ item.price * item.orderedQuantity | currency }}</div>
                 </div>
             </div>
             <div class="flex justify-between py-3 font-light">
@@ -32,4 +35,3 @@
         </div>
     </mat-menu>
 </mat-toolbar>
-<app-nav></app-nav>

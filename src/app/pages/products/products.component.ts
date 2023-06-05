@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/products.model';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -13,7 +14,8 @@ export class ProductsComponent implements OnInit {
   currentCart: Product[] = [];
 
   constructor(
-    private productService: ProductsService
+    private productService: ProductsService,
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
@@ -41,6 +43,7 @@ export class ProductsComponent implements OnInit {
       this.currentCart.push(product);
     }
     localStorage.setItem('cart_items', JSON.stringify(this.currentCart));
+    this.cartService.setCart(this.currentCart);
   }
 
   removeFromCart(product: Product){
@@ -55,6 +58,7 @@ export class ProductsComponent implements OnInit {
     }
     
     localStorage.setItem('cart_items', JSON.stringify(this.currentCart));
+    this.cartService.setCart(this.currentCart);
   }
 
   checkInCart(product: Product): number {
@@ -66,4 +70,6 @@ export class ProductsComponent implements OnInit {
     return this.currentCart[itemIndex];
   }
 
+  
+  
 }

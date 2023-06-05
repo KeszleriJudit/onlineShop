@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/products.model';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: []
 })
 export class HeaderComponent implements OnInit {
 
   cart: Product[] | null = [];
+  numberOfItems: number = 0;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
@@ -20,10 +23,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getCartItems() {
-    let productList = localStorage.getItem('cart_items');
-    if(productList){
-      this.cart = JSON.parse(productList);
-    }
+    this.cart = this.cartService.getCart();
   }
 
   getTotalValue(): number {
@@ -33,8 +33,13 @@ export class HeaderComponent implements OnInit {
     });
     return totalValue;
   }
-  
+
   navigateToCart(){
     this.router.navigate(['/cart']);
+  }
+
+  getNumberOfItems(): number{
+    this.numberOfItems = this.cartService.getNumberOfItemsInCart();
+    return this.numberOfItems;
   }
 }
